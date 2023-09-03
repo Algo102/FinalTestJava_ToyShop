@@ -1,45 +1,44 @@
 package org.example.View;
 
-import org.example.Model.Awards;
-import org.example.Model.Lottery;
-import org.example.Model.Saver;
+import org.example.Model.Priz;
+import org.example.Model.Shans;
+import org.example.Model.Save;
 import org.example.Model.Toy;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UserView {
-    public UserView() {
+public class View {
+    public View() {
     }
     public void run(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Сколько видов игрушек участвуют в розыгрыше: ");
-        int numberOfToys = scanner.nextInt();
-        // формирование ассортимента призов
-        ArrayList<Toy> toysAssortment = new ArrayList<>();
-        for (int i = 0; i < numberOfToys; i++) {
-            Scanner scanner1 = new Scanner(System.in);
-            System.out.println("Введите название игрушки и частоту выпадения игрушки (от 1 до 10) через пробел");
-            String userToy = scanner1.nextLine();
-            String[] userToyData = userToy.split(" ");
-            Toy toy = new Toy(userToyData[0],Integer.parseInt(userToyData[1]));
-            toysAssortment.add(toy);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Сколько видов игрушек в лотерее: ");
+        int quantityToy = sc.nextInt();
+        ArrayList<Toy> assortment = new ArrayList<>();
+        for (int i = 0; i < quantityToy; i++) {
+            Scanner sc1 = new Scanner(System.in);
+            System.out.println("Введите название игрушки и вероятность ее выпадения (от 1 до 10 через пробел)");
+            String toyShans = sc1.nextLine();
+            String[] allToys = toyShans.split(" ");
+            Toy toy = new Toy(allToys[0],Integer.parseInt(allToys[1]));
+            assortment.add(toy);
         }
-        //формирование списка участников розыгрыша
-        System.out.println("Введите количество участников розыгрыша");
-        int numberOfPeople = scanner.nextInt();
-        String[] peoples = new String[numberOfPeople];
-        for (int i = 0; i < peoples.length; i++) {
-            Scanner scanner2 = new Scanner(System.in);
-            System.out.println("Введите имя участника: ");
-            peoples[i] = scanner2.nextLine();
+
+        System.out.println("Сколько игроков в розыгрыше");
+        int quantityHuman = sc.nextInt();
+        String[] human = new String[quantityHuman];
+        for (int i = 0; i < human.length; i++) {
+            Scanner sc2 = new Scanner(System.in);
+            System.out.println("Введите имя игрока: ");
+            human[i] = sc2.nextLine();
         }
-        //формирование списка призов по количеству участников розыгрыша
-        Awards awardsList = new Awards();
-        awardsList.create(toysAssortment,peoples);
-        //получение пар победитель-приз
-        Lottery lottery = new Lottery();
-        Saver saver = new Saver();
-        saver.save(lottery.getPrize(awardsList.namesOfAwards(),peoples));
+
+        Priz priz = new Priz();
+        priz.create(assortment,human);
+
+        Shans shans = new Shans();
+        Save save = new Save();
+        save.save(shans.getPrize(priz.namesToys(),human));
     }
 }

@@ -3,43 +3,43 @@ package org.example.Model;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Awards {
-    private ArrayList<Toy> awardsList = new ArrayList<Toy>();
-    public Awards() {
+public class Priz {
+    private ArrayList<Toy> prizList = new ArrayList<Toy>();
+    public Priz() {
     }
 
-    public ArrayList<Toy> getAwardsList() {
-        return awardsList;
+    public ArrayList<Toy> getPrizList() {
+        return prizList;
     }
 
     @Override
     public String toString() {
-        return "Awards{" +
-                "awardsList=" + awardsList +
+        return "Priz{" +
+                "prizList=" + prizList +
                 '}';
     }
 
 
-    public ArrayList<Toy> create(ArrayList<Toy> toys, String[] peoples){
+    public ArrayList<Toy> create(ArrayList<Toy> toys, String[] humans){
         int sumOfFrequencyes=0;
         for (Toy toy:toys) {
             sumOfFrequencyes+= toy.getFrequency();
         }
         for (Toy toy:toys) {
-            double countOfToy = Math.round(((toy.getFrequency()*100)/sumOfFrequencyes)*peoples.length/100);
-            for (int i = 0; i < countOfToy; i++) {
-                awardsList.add(toy);
+            double countToy = Math.round(((toy.getFrequency()*100)/sumOfFrequencyes)*humans.length/100);
+            for (int i = 0; i < countToy; i++) {
+                prizList.add(toy);
             }
         }
-        return awardsList;
+        return prizList;
     }
-    public String[] namesOfAwards(){
-        String[] namesOfAwards = new String[awardsList.size()];
-        for (int i = 0; i < namesOfAwards.length; i++) {
-            Collections.shuffle(awardsList);
-            namesOfAwards[i] = awardsList.get(0).getName();
-            awardsList.remove(0);
+    public String[] namesToys(){
+        String[] namesToys = new String[prizList.size()];
+        for (int i = 0; i < namesToys.length; i++) {
+            Collections.shuffle(prizList);
+            namesToys[i] = prizList.get(0).getName();
+            prizList.remove(0);
         }
-        return  namesOfAwards;
+        return  namesToys;
     }
 }
